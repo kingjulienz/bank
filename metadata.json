@@ -1,0 +1,6 @@
+{
+  "name": "ระบบจัดการรายรับรายจ่าย (Expense & Income Tracker)",
+  "description": "เว็บจัดการรายรับรายจ่าย สรุปผลรายเดือน พร้อมภาพวิเคราะห์ข้อมูลและกราฟสถิติ บันทึกข้อมูลผ่าน Firebase และเข้าสู่ระบบด้วย Gmail",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

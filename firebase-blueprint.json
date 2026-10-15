@@ -1,0 +1,145 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique user ID matching auth UID",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address",
+          "maxLength": 256
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name",
+          "maxLength": 128
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Avatar photo URL",
+          "maxLength": 1024
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp ISO string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp ISO string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "email"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Income or expense record",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID",
+          "maxLength": 128
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of transaction: income or expense",
+          "enum": ["income", "expense"]
+        },
+        "amount": {
+          "type": "number",
+          "description": "Transaction amount in THB"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category name",
+          "maxLength": 64
+        },
+        "date": {
+          "type": "string",
+          "description": "Date string in YYYY-MM-DD",
+          "maxLength": 10
+        },
+        "note": {
+          "type": "string",
+          "description": "Memo or details",
+          "maxLength": 500
+        },
+        "wallet": {
+          "type": "string",
+          "description": "Payment method or account",
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp ISO string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp ISO string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "type", "amount", "category", "date"]
+    },
+    "Budget": {
+      "title": "Budget",
+      "description": "Monthly budget limit for spending control",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID",
+          "maxLength": 128
+        },
+        "month": {
+          "type": "string",
+          "description": "Month formatted as YYYY-MM",
+          "maxLength": 7
+        },
+        "category": {
+          "type": "string",
+          "description": "Category or 'total'",
+          "maxLength": 64
+        },
+        "limitAmount": {
+          "type": "number",
+          "description": "Budget limit in THB"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp ISO string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp ISO string",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "month", "category", "limitAmount"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Individual user document containing profile data"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Subcollection of income and expense transactions belonging to the user"
+    },
+    "/users/{userId}/budgets/{budgetId}": {
+      "schema": "Budget",
+      "description": "Subcollection of monthly budget limits belonging to the user"
+    }
+  }
+}
